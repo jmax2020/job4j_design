@@ -11,10 +11,10 @@ public class MatrixItTest {
 
     @Test
     public void whenOneEl() {
-        int m[][] = {
+        int[][] in= {
                 {1}
         };
-        MatrixIt matr = new MatrixIt(m);
+        MatrixIt matr = new MatrixIt(in);
         assertThat(matr.next(), is(1));
     }
 

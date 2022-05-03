@@ -12,10 +12,6 @@ public class MatrixIt implements Iterator {
         this.data = data;
     }
 
-
-    //&& data[row].getClass().isArray()
-
-
     @Override
     public boolean hasNext() {
         while (row < data.length && ((data.length != 0 && data[row].length == 0) || column == data[row].length)) {

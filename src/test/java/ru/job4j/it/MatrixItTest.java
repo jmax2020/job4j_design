@@ -11,7 +11,7 @@ public class MatrixItTest {
 
     @Test
     public void whenOneEl() {
-        int[][] in= {
+        int[][] in = {
                 {1}
         };
         MatrixIt matr = new MatrixIt(in);

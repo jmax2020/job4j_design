@@ -11,24 +11,22 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         this.data = data;
     }
 
-    public boolean hasEvenNumber() {
+    @Override
+    public boolean hasNext() {
+        boolean rsl = false;
         while (index < data.length) {
             if (data[index] % 2 == 0) {
-                return true;
+                rsl = true;
+                break;
             }
             index++;
         }
-        return false;
-    }
-
-    @Override
-    public boolean hasNext() {
-        return hasEvenNumber();
+        return rsl;
     }
 
     @Override
     public Integer next() throws NoSuchElementException {
-        if (!hasEvenNumber()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return  data[index++];

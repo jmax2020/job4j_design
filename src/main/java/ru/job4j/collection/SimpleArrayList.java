@@ -40,6 +40,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         Objects.checkIndex(index, container.length);
         T element = container[index];
         System.arraycopy(container, index + 1, container, index, size-- - index - 1);
+        container[container.length - 1] = null;
         modCount++;
         return element;
     }

@@ -110,7 +110,7 @@ public class SimpleArrayListTest {
     }
 
     @Test(expected = ConcurrentModificationException.class)
-    public void whenAddAfterGetIteratorThenMustBeException(){
+    public void whenAddAfterGetIteratorThenMustBeException() {
         Iterator<Integer> iterator = list.iterator();
         list.add(4);
         iterator.next();

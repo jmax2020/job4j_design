@@ -13,7 +13,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     private T[] grow(int newLength) {
     return Arrays.copyOf(container, newLength == 0 ? 1 : newLength);
-
     }
 
     @Override

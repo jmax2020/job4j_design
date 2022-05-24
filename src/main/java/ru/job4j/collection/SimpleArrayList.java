@@ -40,8 +40,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T remove(int index) {
-        T element = get(index);
-        System.arraycopy(container, index + 1, container, index, size-- - index - 1);
+        Objects.checkIndex(index, size);
+        T element = container[index];
+        System.arraycopy(container, index + 1, container, index, size - index - 1);
+        size--;
         container[container.length - 1] = null;
         modCount++;
         return element;

@@ -34,14 +34,13 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, container.length);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T element = container[index];
+        T element = get(index);
         System.arraycopy(container, index + 1, container, index, size - index - 1);
         size--;
         container[container.length - 1] = null;

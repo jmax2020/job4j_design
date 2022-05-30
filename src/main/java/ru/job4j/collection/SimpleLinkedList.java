@@ -6,10 +6,10 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
-    int size = 0;
-    Node<E> first = null;
-    Node<E> last = null;
-    int modCount = 0;
+    private int size = 0;
+    private Node<E> first = null;
+    private Node<E> last = null;
+    private int modCount = 0;
 
     private static class Node<E> {
         E item;
@@ -23,12 +23,11 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public void add(E value) {
         Node<E> tmp = last;
-        Node<E> newNode = new Node<>(value, null);
-        last = newNode;
+        last = new Node<>(value, null);
         if (tmp == null) {
-            first = newNode;
+            first = last;
         } else {
-            tmp.next = newNode;
+            tmp.next = last;
         }
         size++;
         modCount++;
@@ -67,8 +66,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
             }
         };
     }
-
-
 }
 
 

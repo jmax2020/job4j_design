@@ -33,7 +33,7 @@ public class ListUtilsTest {
 
     @Test
     public void whenReplaceIfDevided2() {
-        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3 ,4));
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
         ListUtils.replaceIf(input, a -> a % 2 == 0, 7);
         assertThat(input, is(Arrays.asList(7, 1, 7, 3, 7)));
     }

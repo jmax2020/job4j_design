@@ -12,7 +12,7 @@ public class SimpleMapTest {
 
     @Test
     public void whenAdd() {
-        SimpleMap<Integer, String> mapa= new SimpleMap<>();
+        SimpleMap<Integer, String> mapa = new SimpleMap<>();
         assertTrue(mapa.put(1, "one"));
         mapa.put(2, "two");
         assertThat(mapa.getCount(), is(2));
@@ -29,7 +29,7 @@ public class SimpleMapTest {
 
     @Test
     public void whenRemove() {
-        SimpleMap<Integer, String> mapa= new SimpleMap<>();
+        SimpleMap<Integer, String> mapa = new SimpleMap<>();
         mapa.put(1, "one");
         mapa.put(2, "two");
         assertTrue(mapa.remove(2));
@@ -38,7 +38,7 @@ public class SimpleMapTest {
 
     @Test
     public void whenHasNext() {
-        SimpleMap<Integer, String> mapa= new SimpleMap<>();
+        SimpleMap<Integer, String> mapa = new SimpleMap<>();
         mapa.put(1, "one");
         Iterator<Integer> it = mapa.iterator();
         assertTrue(it.hasNext());
@@ -48,7 +48,7 @@ public class SimpleMapTest {
 
     @Test
     public void whenHasNot() {
-        SimpleMap<Integer, String> mapa= new SimpleMap<>();
+        SimpleMap<Integer, String> mapa = new SimpleMap<>();
         mapa.put(1, "one");
         mapa.remove(1);
         Iterator<Integer> it = mapa.iterator();
@@ -57,7 +57,7 @@ public class SimpleMapTest {
 
     @Test(expected = ConcurrentModificationException.class)
     public void whenConcurrentModificationException() {
-        SimpleMap<Integer, String> mapa= new SimpleMap<>();
+        SimpleMap<Integer, String> mapa = new SimpleMap<>();
         mapa.put(1, "one");
         Iterator<Integer> it = mapa.iterator();
         mapa.put(2, "two");

@@ -52,9 +52,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
+        V rsl = null;
         int index = indexFor(hash(key.hashCode()));
-        Objects.checkIndex(index, capacity);
-        return table[index] == null ? null : table[index] .value;
+        if (table[index] != null && key.equals(table[index].key)) {
+            rsl = table[index].value;
+        }
+        return table[index] == null ? null : rsl;
     }
 
     public int getCapacity() {
@@ -65,8 +68,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         boolean rsl = false;
         int index = indexFor(hash(key.hashCode()));
-        Objects.checkIndex(index, capacity);
-        if (table[index] != null) {
+        if (table[index] != null && key.equals(table[index].key)) {
             table[index] = null;
             rsl = true;
             count--;
@@ -79,14 +81,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public Iterator<K> iterator() {
         int expModCount = vodCount;
         return new Iterator<>() {
-            int mark = 0;
-            int i = 0;
+            int index = 0;
             @Override
             public boolean hasNext() {
                 if (expModCount != vodCount) {
                     throw new ConcurrentModificationException();
                 }
-                return mark < count;
+                while (index < table.length && table[index] == null) {
+                    index++;
+                }
+                return index < table.length;
             }
 
             @Override
@@ -94,13 +98,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                for (int index = i; index < table.length; index++) {
-                    if (table[index] != null) {
-                        i = index;
-                        mark++;
-                    }
-                }
-                return table[mark++].key;
+                return table[index++].key;
             }
         };
     }

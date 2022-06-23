@@ -59,7 +59,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 && key.equals(table[index].key)) {
             rsl = table[index].value;
         }
-        return table[index] == null ? null : rsl;
+        return rsl;
     }
 
     public int getCapacity() {

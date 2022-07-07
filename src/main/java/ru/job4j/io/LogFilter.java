@@ -13,7 +13,7 @@ public class LogFilter {
             Iterator<String> it = list.iterator();
             while (it.hasNext()) {
                 String[] elements = it.next().split(" ");
-                if (!elements[elements.length - 2].equals("404")) {
+                if (!"404".equals(elements[elements.length - 2])) {
                     it.remove();
                 }
             }
@@ -44,6 +44,6 @@ public class LogFilter {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
         save(log, "output.txt");
-        System.out.println(log);
+        log.forEach(System.out::println);
     }
 }

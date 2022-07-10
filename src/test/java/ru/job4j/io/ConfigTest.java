@@ -22,6 +22,5 @@ public class ConfigTest {
         String path = "./err.prop";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.connection.username"), is("postgres"));
     }
 }

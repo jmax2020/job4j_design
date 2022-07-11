@@ -19,7 +19,7 @@ public class ConfigTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenError() {
-        String path = "./err.prop";
+        String path = "./app.properties";
         Config config = new Config(path);
         config.load();
     }

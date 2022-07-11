@@ -1,42 +1,35 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.List;
 
 public class Analizy {
 
     public void unavailable(String source, String target) {
-        StringBuilder strBild = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
-            List<String> list = in.lines().toList();
+        try (BufferedReader in = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+            String line = in.readLine();
             boolean bad = false;
-            for (String el : list) {
-                String[] mass = el.split(" ");
+            while (line != null) {
+                String[] mass = line.split(" ");
                 if ("400".equals(mass[0]) || "500".equals(mass[0])) {
                     if (!bad) {
                         bad = true;
-                        strBild.append(mass[1]);
-                        strBild.append(";");
+                        out.print(mass[1] + ";");
                     }
                 } else {
                     if (bad) {
                         bad = false;
-                        strBild.append(mass[1]);
-                        strBild.append(";");
-                        strBild.append(System.lineSeparator());
+                       out.print(mass[1] + ";" + System.lineSeparator());
                     }
                 }
+                line = in.readLine();
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            out.println(strBild);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
         public static void main(String[] args) {
         Analizy analiz = new Analizy();

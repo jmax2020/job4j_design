@@ -5,10 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class Config {
     private final String path;
@@ -22,6 +20,7 @@ public class Config {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String line = in.readLine();
             while (line != null) {
+                line = line.trim();
                 if (!line.isBlank() && !"#".equals(String.valueOf(line.charAt(0)))) {
                     String[] parts = line.split("=", 2);
                     if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {

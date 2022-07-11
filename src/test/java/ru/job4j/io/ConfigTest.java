@@ -23,4 +23,12 @@ public class ConfigTest {
         Config config = new Config(path);
         config.load();
     }
+
+    @Test
+    public void whenTwoEqually() {
+        String path = "./test.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("key"), is("value=1"));
+    }
 }

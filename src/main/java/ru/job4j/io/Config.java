@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class Config {
     private final String path;
@@ -19,14 +20,16 @@ public class Config {
 
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            List<String> list = in.lines()
-                    .filter(e -> !e.contains("#") && e.length() > 0).toList();
-            for (String element : list) {
-                String[] parts = element.split("=");
-                if (!(parts.length == 2) || "".equals(parts[0]) || "".equals(parts[1])) {
-                    throw new IllegalArgumentException();
+            String line = in.readLine();
+            while (line != null) {
+                if (!line.isBlank() && !"#".equals(String.valueOf(line.charAt(0)))) {
+                    String[] parts = line.split("=", 2);
+                    if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
+                        throw new IllegalArgumentException();
+                    }
+                    values.put(parts[0], parts[1]);
                 }
-                values.put(parts[0], parts[1]);
+                line = in.readLine();
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();

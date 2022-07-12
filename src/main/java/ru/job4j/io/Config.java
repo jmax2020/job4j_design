@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class Config {
             String line = in.readLine();
             while (line != null) {
                 line = line.trim();
-                if (!line.isBlank() && !"#".equals(String.valueOf(line.charAt(0)))) {
+                if (!line.isBlank() && !line.startsWith("#")) {
                     String[] parts = line.split("=", 2);
                     if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
                         throw new IllegalArgumentException();
@@ -30,8 +29,6 @@ public class Config {
                 }
                 line = in.readLine();
             }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

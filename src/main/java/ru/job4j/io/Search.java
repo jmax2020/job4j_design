@@ -13,7 +13,6 @@ public class Search {
         List<Path> list =  search(start, p -> p.toFile().getName().endsWith(".js"));
         list.forEach(System.out::println);
     }
-
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
         SearchFiles searcher = new SearchFiles(condition);
         Files.walkFileTree(root, searcher);

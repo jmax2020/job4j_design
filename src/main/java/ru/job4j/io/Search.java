@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 public class Search {
     public static void main(String[] args) throws IOException {
         validateArgs(args);
+        args[0] = "test";
         Path start = Paths.get(args[0]);
         List<Path> list =  search(start, p -> p.toFile().getName().endsWith(args[1]));
         list.forEach(System.out::println);
@@ -23,8 +24,11 @@ public class Search {
     }
 
     private static void validateArgs(String[] args) {
-        if (args.length < 2 || args[0].length() == 0 || args[1].length() == 0) {
-            throw new IllegalArgumentException("Can't find arguments!");
+        if (args.length < 2) {
+            throw new IllegalArgumentException("You must enter 2 arguments!");
+        }
+        if (!args[1].contains(".")) {
+            throw new IllegalArgumentException("Illegal argument #2! You must enter the file extension");
         }
     }
 }

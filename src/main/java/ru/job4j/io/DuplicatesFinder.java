@@ -10,6 +10,8 @@ public class DuplicatesFinder {
     }
 
     public static void walkFile(String catalog) throws IOException {
-        Files.walkFileTree(Path.of(catalog), new DuplicatesVisitor());
+        DuplicatesVisitor visitor = new DuplicatesVisitor();
+        Files.walkFileTree(Path.of(catalog), visitor);
+        visitor.arrayDuplicates.forEach(System.out::println);
     }
 }

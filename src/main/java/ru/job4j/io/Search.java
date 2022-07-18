@@ -1,7 +1,5 @@
 package ru.job4j.io;
 
-import jdk.jshell.EvalException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +24,10 @@ public class Search {
     private static void validateArgs(String[] args) {
         if (args.length < 2) {
             throw new IllegalArgumentException("You must enter 2 arguments!");
+        }
+        Path path = Path.of(args[0]);
+        if (!Files.exists(path) || !Files.isDirectory(path)) {
+            throw new IllegalArgumentException("Illegal argument #1! You must enter the destination");
         }
         if (!args[1].contains(".")) {
             throw new IllegalArgumentException("Illegal argument #2! You must enter the file extension");

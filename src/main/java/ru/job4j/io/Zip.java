@@ -41,51 +41,27 @@ public class Zip {
         }
     }
 
-    private void validate(String[] args) {
-        if (args.length < 3) {
-            throw new IllegalArgumentException("You must to enter 3 parameters!");
+    private void validate(ArgsName argsName) {
+        if (!Files.exists(Path.of(argsName.get("d")))) {
+            throw new IllegalArgumentException("Incorrect argument d!");
         }
-        boolean existD = false;
-        boolean existE = false;
-        boolean existO = false;
-        for (String arg : args) {
-            if (arg.contains("d=")) {
-                String[] tails = arg.split("=", 2);
-                if (!Files.exists(Path.of(tails[1]))) {
-                    throw new IllegalArgumentException("Incorrect argument d!");
-                }
-                existD = true;
-            }
-            if (arg.contains("e=")) {
-                if (!arg.contains("e=.") || !(arg.split("\\.").length == 2)) {
-                    throw new IllegalArgumentException("Incorrect argument e!");
-                }
-                existE = true;
-            }
-            if (arg.contains("o=")) {
-                String[] tails = arg.split("=", 2);
-                    Path destination = Path.of(tails[1]).toAbsolutePath().getParent();
-                    if (!Files.exists(destination)) {
-                    throw new IllegalArgumentException("Incorrect argument o!");
-                }
-                existO = true;
-            }
+        String argE = argsName.get("e");
+        if (!argE.startsWith(".") || argE.split("\\.").length > 2) {
+            throw new IllegalArgumentException("Incorrect argument e!");
         }
-        if (!existD) {
-            throw new IllegalArgumentException("The source destination is not specified!");
-        }
-        if (!existE) {
-            throw  new IllegalArgumentException("Exception file extensions are not specified!");
-        }
-        if (!existO) {
-            throw new IllegalArgumentException("The target is not specified!");
+        Path destination = Path.of(argsName.get("o")).toAbsolutePath().getParent();
+        if (!Files.exists(destination)) {
+            throw new IllegalArgumentException("Incorrect argument o!");
         }
     }
 
     public static void main(String[] args) throws IOException {
+        if (args.length < 3) {
+            throw new IllegalArgumentException("You must to enter 3 parameters!");
+        }
         Zip zip = new Zip();
-        zip.validate(args);
         ArgsName argsName = ArgsName.of(args);
+        zip.validate(argsName);
         List<Path> list = Search.search(Path.of(argsName.get("d")), a -> !a.toString().endsWith(argsName.get("e")));
         zip.packFiles(list, new File(argsName.get("o")));
     }

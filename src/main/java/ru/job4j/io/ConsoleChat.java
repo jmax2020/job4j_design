@@ -22,15 +22,16 @@ public class ConsoleChat {
         Scanner input = new Scanner(System.in);
         String head = "поболтаем? выберите:";
         log.add(head);
-        System.out.println(head);
+        PrintWriter print = new PrintWriter(System.out, true);
+        print.println(head);
         String answer = "";
         while (!OUT.equals(answer)) {
-            showMenu();
+            showMenu(print);
             answer = input.nextLine();
             log.add("answer: " + answer);
             if (CONTINUE.equals(answer)) {
                 String botAnswer = getRandomAnswer();
-                System.out.println(botAnswer);
+                print.println(botAnswer);
                 log.add(botAnswer);
             }
             if (STOP.equals(answer)) {
@@ -40,12 +41,12 @@ public class ConsoleChat {
         }
     }
 
-    private void showMenu() {
-        System.out.println(CONTINUE);
+    private void showMenu(PrintWriter print) {
+        print.println(CONTINUE);
         log.add(CONTINUE);
-        System.out.println(STOP);
+        print.println(STOP);
         log.add(STOP);
-        System.out.println(OUT);
+        print.println(OUT);
         log.add(OUT);
     }
 

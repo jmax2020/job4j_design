@@ -10,6 +10,7 @@ public class ConsoleChat {
     private static final String CONTINUE = "продолжить";
     private final String path;
     private final String botAnswers;
+    private List<String> botAnswersList = new ArrayList<>();
     private List<String> log = new LinkedList<>();
 
     public ConsoleChat(String path, String botAnswers) {
@@ -49,23 +50,23 @@ public class ConsoleChat {
     }
 
     private String getRandomAnswer() {
-        List<String> list = readPhrases();
+        if (botAnswersList.size() == 0) {
+            readPhrases();
+        }
         Random rand = new Random();
-        return list.get(rand.nextInt(list.size()));
+        return botAnswersList.get(rand.nextInt(botAnswersList.size()));
     }
 
-    private List<String> readPhrases() {
-        List<String> list = new ArrayList<>();
+    private void readPhrases() {
         try (BufferedReader buffer = new BufferedReader(new FileReader(botAnswers, Charset.forName("Windows-1251")))) {
             String line = buffer.readLine();
             while (line != null) {
-                list.add(line);
+                botAnswersList.add(line);
                 line = buffer.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list;
     }
 
     private void saveLog(List<String> log) {

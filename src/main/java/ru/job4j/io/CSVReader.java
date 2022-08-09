@@ -57,14 +57,13 @@ public class CSVReader {
 
     private static void validate(ArgsName argsName) {
         Path source = Path.of(argsName.get("path"));
-        if (!Files.exists(source) || !Files.isDirectory(source)) {
+        if (!Files.exists(source)) {
             throw new IllegalArgumentException("Illegal argument #1! You must enter the path");
         }
         if ("".equals(argsName.get("delimiter"))) {
             throw new IllegalArgumentException("Illegal argument #2! You must enter the delimiter");
         }
-        Path dest = Path.of(argsName.get("out"));
-        if (!"stdout".equals(argsName.get("out")) || !Files.exists(dest) || !Files.isDirectory(dest)) {
+        if ("".equals(argsName.get("out"))) {
             throw new IllegalArgumentException("Illegal argument #3! You must enter the out");
         }
         if ("".equals(argsName.get("filter"))) {

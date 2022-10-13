@@ -2,13 +2,24 @@ package ru.job4j.serialization.json;
 
 import ru.job4j.serialization.java.Contact;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "man")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Man {
-    private final boolean sex;
-    private final String  name;
-    private final Contact contact;
-    private final int[]  yearsOfEducation;
+    @XmlAttribute
+    private boolean sex;
+    @XmlAttribute
+    private String  name;
+
+    private Contact contact;
+    @XmlElementWrapper(name = "yearsOfEducation")
+    @XmlElement(name = "yearOfEducation")
+    private int[]  yearsOfEducation;
+
+
+    public Man() { }
 
     public Man(boolean sex, String name, Contact contact, int[] yearsOfEducation) {
         this.sex = sex;

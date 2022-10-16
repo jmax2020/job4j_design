@@ -21,6 +21,18 @@ public class Man {
 
     public Man() { }
 
+    public boolean isSex() {
+        return sex;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int[] getYearsOfEducation() {
+        return yearsOfEducation;
+    }
+
     public Man(boolean sex, String name, Contact contact, int[] yearsOfEducation) {
         this.sex = sex;
         this.name = name;

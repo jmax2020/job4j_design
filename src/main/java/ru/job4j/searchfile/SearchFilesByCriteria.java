@@ -23,7 +23,7 @@ public class SearchFilesByCriteria {
                 rsl = Search.search(resource, e -> mask.equals(e.getFileName().toString()));
 
             } catch (IOException e) {
-                LOG.error("KOSYAK s parametrom name", e);
+                LOG.error("invalid parameter 'name'", e);
             }
         }
         if ("mask".equals(typeFind) || "regex".equals(typeFind)) {
@@ -31,7 +31,7 @@ public class SearchFilesByCriteria {
                 PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + mask);
                 rsl = Search.search(resource, e -> matcher.matches(e.getFileName()));
             } catch (IOException e) {
-                LOG.error("KOSYAK s parametrom mask", e);
+                LOG.error("invalid parameter 'mask'", e);
             }
         }
         return rsl;
@@ -44,7 +44,7 @@ public class SearchFilesByCriteria {
                 bw.newLine();
             }
         } catch (IOException e) {
-            LOG.error("KOSYAK with writeToFile", e);
+            LOG.error("Something wrong writeToFile", e);
         }
     }
     private static void validate(ArgsName argsName) {

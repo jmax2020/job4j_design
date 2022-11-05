@@ -1,8 +1,8 @@
-insert into users(name) values ('Max');
-insert into users(name) values ('Bob');
-
 insert into role(name) values('admin');
 insert into role(name) values('user');
+
+insert into users(name, role_id) values ('Max', 1);
+insert into users(name, role_id) values ('Bob', 2);
 
 insert into rules(name) values('read');
 insert into rules(name) values('write');

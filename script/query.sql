@@ -12,5 +12,5 @@ insert into fauna(name, avg_age, discovery_date) values ('fish_shark', 10000, '0
 
 select name, avg_age from fauna where name like '%fish%';
 select name, avg_age from fauna where avg_age > 10000 and avg_age <21000;
-select name from fauna where avg_age is null;
-select * from fauna where discovery_date < '01.01.1950';
+select name from fauna where discovery_date is null;
+select * from fauna where discovery_date < '1950-01-01';

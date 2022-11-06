@@ -4,7 +4,6 @@ create table fauna (
     avg_age int,
     discovery_date date
 );
-
 insert into fauna(name, avg_age, discovery_date) values ('cat', 3650, '01.01.1745');
 insert into fauna(name, avg_age, discovery_date) values ('dog', 5000, null);
 insert into fauna(name, avg_age, discovery_date) values ('tarakan', 250, null);

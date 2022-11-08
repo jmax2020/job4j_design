@@ -23,14 +23,28 @@ insert into employees (name, departments_id) values ('Olivia', 1);
 insert into employees (name, departments_id) values ('Zoya', null);
 insert into employees (name, departments_id) values ('Sasha', null);
 
-select e.name, d.name from employees e left join departments d on e.departments_id = d.id;
-select e.name, d.name from employees e right join departments d on e.departments_id = d.id;
-select e.name, d.name from employees e full join departments d on e.departments_id = d.id;
-select e.name, d.name from employees e cross join departments d;
-select d.name from departments d left join employees e on d.id = e.departments_id where e.name is null;
+select e.name, d.name from employees e
+left join departments d
+on e.departments_id = d.id;
+select e.name, d.name from employees e
+right join departments d
+on e.departments_id = d.id;
+select e.name, d.name from employees e
+full join departments d
+on e.departments_id = d.id;
+select e.name, d.name from employees e
+cross join departments d;
+select d.name from departments d
+left join employees e
+on d.id = e.departments_id
+where e.name is null;
 
-select d.name, e.name from departments d left join employees e on d.id = e.departments_id;
-select d.name, e.name from employees e right join departments d on d.id = e.departments_id;
+select d.name, e.name from departments d
+left join employees e
+on d.id = e.departments_id;
+select d.name, e.name from employees e
+right join departments d
+on d.id = e.departments_id;
 
 create table teens(
 id serial primary key,
@@ -47,4 +61,6 @@ insert into teens (name, gender) values ('Zoya', false);
 insert into teens (name, gender) values ('Jon', true);
 insert into teens (name, gender) values ('Soul', true);
 
-select m.name, f.name from teens m cross join teens f where m.gender and not f.gender;
+select m.name, f.name from teens m
+cross join teens f
+where m.gender and not f.gender;

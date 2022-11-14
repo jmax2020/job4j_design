@@ -52,7 +52,7 @@ create or replace function insert_history()
 	returns trigger as
 $$
 	BEGIN
-		insert into history_of_price select new.id, new.name, now(), new.price;
+		insert into history_of_price select new.id, new.name, new.price, now();
 		return NEW;
 	END;
 $$

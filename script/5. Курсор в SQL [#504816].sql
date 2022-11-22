@@ -25,6 +25,8 @@ insert into products (name, count, price) VALUES ('product_18', 18, 90);
 insert into products (name, count, price) VALUES ('product_19', 19, 95);
 insert into products (name, count, price) VALUES ('product_20', 20, 100);
 
+start transaction;
+
 DECLARE
     cursor_products SCROLL cursor for
                     select * from products order by id desc;

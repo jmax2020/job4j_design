@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class ImportDB {
 
@@ -20,18 +20,13 @@ public class ImportDB {
     }
 
     public List<User> load() throws IOException {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            String line;
-            while ((line = rd.readLine()) != null) {
-                String[] param = line.split(";");
-                if (param.length < 2
-                        || param[0].isBlank()
-                        || param[1].isBlank()) {
-                    throw new IllegalArgumentException();
-                }
-                users.add(new User(param[0], param[1]));
-            }
+            users = rd.lines()
+                    .map(e -> e.split(";", 2))
+                    .filter(e -> !e[0].isBlank() && !e[1].isBlank())
+                    .map(e -> new User(e[0], e[1]))
+                    .collect(Collectors.toList());
         }
         return users;
     }

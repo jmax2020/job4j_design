@@ -26,8 +26,8 @@ public class ImportDB {
             while ((line = rd.readLine()) != null) {
                 String[] param = line.split(";");
                 if (param.length < 2
-                        || "".equals(param[0])
-                        || "".equals(param[1])) {
+                        || param[0].isBlank()
+                        || param[1].isBlank()) {
                     throw new IllegalArgumentException();
                 }
                 users.add(new User(param[0], param[1]));

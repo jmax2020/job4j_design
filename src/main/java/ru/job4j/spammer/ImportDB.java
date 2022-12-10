@@ -19,12 +19,28 @@ public class ImportDB {
         this.dump = dump;
     }
 
+    private static boolean checkLine(String[] line) throws IOException {
+       boolean rsl = true;
+       if (line.length < 2 || line[0].isBlank() || line[1].isBlank()) {
+           throw new IOException();
+       }
+       return rsl;
+    }
+
     public List<User> load() throws IOException {
         List<User> users;
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             users = rd.lines()
                     .map(e -> e.split(";", 2))
-                    .filter(e -> !e[0].isBlank() && !e[1].isBlank())
+                    .filter(e -> {
+                        try {
+                            return checkLine(e);
+                        } catch (IOException ex) {
+                            throw new IllegalArgumentException("incorrect line '"
+                                    + String.join(";", e)
+                                    + "' in file " + dump);
+                        }
+                    })
                     .map(e -> new User(e[0], e[1]))
                     .collect(Collectors.toList());
         }
